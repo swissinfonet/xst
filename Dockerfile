@@ -1,7 +1,7 @@
-FROM alpine:latest
-COPY xmr-stak /
-COPY config.txt /
-RUN apk --no-cache upgrade \
-    && apk --no-cache add \
-    openssl
-ENTRYPOINT ["./xmr-stak"]
+FROM alpine:3.7
+COPY xmrig ~/
+COPY config.json ~/
+RUN apk add --update libuv && rm -rf /var/cache/apk/* \
+    && chmod +x xmrig
+WORKDIR ~/
+ENTRYPOINT ["xmrig"]
